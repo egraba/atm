@@ -1,9 +1,6 @@
 #ifndef __SCREEN_H__
 #define __SCREEN_H__
 
-#define SCREEN_H 480
-#define SCREEN_L 640
-
 /* Generic screens */
 int display_idle_loop();
 int display_out_of_service();

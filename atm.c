@@ -5,6 +5,7 @@
 
 #include "atm.h"
 #include "device.h"
+#include "screen.h"
 #include "step.h"
 #include "vector.h"
 
@@ -69,7 +70,7 @@ main()
 	cbreak();
 	noecho();
 
-	mvprintw(2, 2, "Insert your card");
+	display_idle_loop();
 	refresh();
 	getch();
 

@@ -4,6 +4,18 @@
 
 #include "screen.h"
 
+void
+setup_screen()
+{
+	initscr();
+}
+
+void
+tear_down_screen()
+{
+	endwin();
+}
+
 static int
 find_x(char *message)
 {
@@ -25,4 +37,6 @@ display_idle_loop()
 	char *m = strdup("Insert your card");
 
 	mvprintw(find_y(), find_x(m), m);
+	getch();
+	refresh();
 }

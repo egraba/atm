@@ -1,6 +1,10 @@
 #ifndef __SCREEN_H__
 #define __SCREEN_H__
 
+/* Setup */
+void setup_screen();
+void tear_down_screen();
+
 /* Generic screens */
 void display_idle_loop();
 int display_out_of_service();

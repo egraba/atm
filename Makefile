@@ -1,9 +1,15 @@
 CC = clang
 CFLAGS = -Wall -Wextra -g
-TARGET = atm
-SRCS = $(wildcard *.c)
+
+SRC_DIR = src
+TEST_DIR = test
+BUILD_DIR = build
+
+SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:.c=.o)
 LDLIBS = -lncurses
+
+TARGET = $(BUILD_DIR)/atm
 
 all: $(TARGET)
 
@@ -15,7 +21,6 @@ $(TARGET): $(OBJS)
 
 clean:
 	rm -f $(OBJS)
-	rm -rdf $(TARGET).dSYM
 	rm -f $(TARGET)
 
 .PHONY: all clean

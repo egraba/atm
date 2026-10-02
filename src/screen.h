@@ -1,12 +1,22 @@
 #ifndef __SCREEN_H__
 #define __SCREEN_H__
 
+#include <tomlc17.h>
+
+/*
+ * Return codes.
+ */
+enum rc {
+	SCREEN_OK,
+	SCREEN_ERROR,
+};
+
 /* Setup */
-void setup_screen();
-void tear_down_screen();
+int setup_screen(const char* filename, toml_result_t *result);
+void tear_down_screen(toml_result_t *result);
 
 /* Generic screens */
-void display_idle_loop();
+int display_idle_loop(toml_result_t *result);
 int display_out_of_service();
 int display_operation_selection();
 int display_pin_entry();

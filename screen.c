@@ -19,16 +19,10 @@ find_y()
 	return ((LINES - 1) / 2);
 }
 
-int
+void
 display_idle_loop()
 {
 	char *m = strdup("Insert your card");
 
 	mvprintw(find_y(), find_x(m), m);
-}
-
-int
-display_out_of_service()
-{
-	return (0);
 }

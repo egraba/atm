@@ -22,7 +22,7 @@ enum rc {
 	ATM_ERROR,
 };
 
-int devices_init(struct atm *a);
+void devices_init(struct atm *a);
 int init_operations();
 int select_protocol();
 int init_customization();

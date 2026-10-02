@@ -8,7 +8,7 @@
 #include "screen.h"
 #include "vector.h"
 
-int
+void
 devices_init(struct atm *a)
 {
 	struct device card_reader = {0};
@@ -23,7 +23,7 @@ devices_init(struct atm *a)
 	vec_push(&a->a_devices, &printer);
 
 	for (size_t i = 0; i < a->a_devices.v_size; i++)
-		device_init((struct device *) vec_get(&a->a_devices, i));
+		device_init((struct device *) vec_get(&a->a_devices));
 }
 
 /*

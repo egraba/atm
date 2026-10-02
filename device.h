@@ -8,6 +8,6 @@ struct device {
 	int d_state;
 };
 
-int device_init(struct device *d);
+void device_init(struct device *d);
 
 #endif

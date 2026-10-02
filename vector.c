@@ -19,7 +19,7 @@ vec_push(struct vec *v, const void *data)
 }
 
 void *
-vec_get(struct vec *v, const int idx)
+vec_get(struct vec *v)
 {
 	return v->v_data;
 }

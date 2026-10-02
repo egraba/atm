@@ -2,7 +2,7 @@
 #define __SCREEN_H__
 
 /* Generic screens */
-int display_idle_loop();
+void display_idle_loop();
 int display_out_of_service();
 int display_operation_selection();
 int display_pin_entry();

@@ -1,8 +1,0 @@
-[atm]
-card_reader = true
-
-[withdrawal]
-cash_dispenser = true
-
-[account_balance]
-printer = true

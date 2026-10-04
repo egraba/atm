@@ -12,27 +12,13 @@ enum rc {
 };
 
 /* Setup */
-int setup_screen(const char* filename, toml_result_t *result);
+int setup_screen(toml_result_t *result, const char* filename);
 void tear_down_screen(toml_result_t *result);
 
 /* Generic screens */
-int display_idle_loop(toml_result_t *result);
-int display_out_of_service();
-int display_operation_selection();
-int display_pin_entry();
-int display_receipt_question();
-int display_receipt_printing();
-int display_please_wait();
-int display_card_eject();
-int display_thank_you();
+int display(toml_result_t *result, const char *screen);
 
 /* Error screens */
-int display_error(char *error);
-
-/* Withdrawal */
-int display_amount_selection();
-int display_banknotes_denominations();
-int display_banknotes_distribution();
-int display_banknotes_and_receipt_distribution();
+int display_error(const char *message);
 
 #endif

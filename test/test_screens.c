@@ -8,8 +8,8 @@
 static int
 usage()
 {
-	fprintf(stderr, "usage: %s file\n", getprogname());
-	return (EXIT_FAILURE);
+	fprintf(stderr, "usage: %s file screen\n", getprogname());
+	exit(EXIT_FAILURE);
 }
 
 int
@@ -17,11 +17,11 @@ main(int argc, char *argv[])
 {
 	toml_result_t result;
 
-	if (argc != 2)
+	if (argc != 3)
 		usage();
 
-	setup_screen(argv[1], &result);
-	display_idle_loop(&result);
+	setup_screen(&result, argv[1]);
+	display(&result, argv[2]);
 	tear_down_screen(&result);
 
 	return (EXIT_SUCCESS);

@@ -1,2 +1,42 @@
+# Generic screens
+
 [idle-loop]
 instruction = "Insert your card"
+
+[out-of-service]
+instruction = "Out of service"
+
+[operation-selection]
+headline = "Select your operation"
+
+[pin-entry]
+instruction = "Enter your PIN"
+
+[receipt-question]
+instruction = "Do you want a receipt?"
+f4 = "Yes"
+f8 = "No"
+
+[receipt-printing]
+instruction = "Take your receipt"
+
+[please-wait]
+instruction = "Please wait"
+
+[card-eject]
+instruction = "Take your card"
+
+[thank-you]
+instruction = "Thank you"
+
+
+# Withdrawal
+
+[amount-selection]
+headline = "Select your amount"
+
+[notes-denominations-selection]
+headline = "Select your denominations"
+
+[notes-distribution]
+instruction = "Take your notes"

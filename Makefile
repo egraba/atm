@@ -16,7 +16,7 @@ TARGET = $(BUILD_DIR)/atm
 
 SRCS_TEST = $(wildcard $(TEST_DIR)/*.c)
 OBJS_TEST = $(filter-out $(SRC_DIR)/atm.o, $(OBJS)) $(SRCS_TEST:.c=.o)
-TARGET_TEST = $(BUILD_DIR)/test_screens
+TARGET_TEST = $(BUILD_DIR)/display
 
 all: $(TARGET)
 

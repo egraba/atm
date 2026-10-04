@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include <ncurses.h>
+#include <tomlc17.h>
 
 #include "atm.h"
 #include "device.h"
@@ -26,25 +27,31 @@ devices_init(struct atm *a)
 		device_init((struct device *) vec_get(&a->a_devices));
 }
 
+static void
+usage()
+{
+	fprintf(stderr, "usage: %s file\n", getprogname());
+	exit(EXIT_FAILURE);
+}
+
 /*
  * The main.
  */
 int
-main()
+main(int argc, char *argv[])
 {
 	struct atm a = {0};
+	toml_result_t result;
+
+	if (argc != 2)
+		usage();
 
 	a.a_state = OUT_OF_SERVICE;
 	devices_init(&a);
 
-	initscr();
-	cbreak();
-	noecho();
+	setup_screen(&result, argv[1]);
+	display(&result, "idle-loop");
+	tear_down_screen(&result);
 
-	display_idle_loop();
-	refresh();
-	getch();
-
-	endwin();
 	return (EXIT_SUCCESS);
 }

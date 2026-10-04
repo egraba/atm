@@ -5,7 +5,7 @@
 
 #include "screen.h"
 
-static int
+static void
 usage()
 {
 	fprintf(stderr, "usage: %s file screen\n", getprogname());

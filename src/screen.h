@@ -3,10 +3,7 @@
 
 #include <tomlc17.h>
 
-/*
- * Return codes.
- */
-enum rc {
+enum screen_return_code {
 	SCREEN_OK,
 	SCREEN_ERROR,
 };

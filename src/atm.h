@@ -14,10 +14,7 @@ struct atm {
 	struct vec a_devices;
 };
 
-/*
- * Return codes.
- */
-enum rc {
+enum atm_return_code {
 	ATM_OK,
 	ATM_ERROR,
 };

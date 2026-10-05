@@ -6,6 +6,9 @@
 
 #include "screen.h"
 
+/*
+ * Print terminal size at the bottom left of the terminal.
+ */
 static void
 print_terminal_size(void)
 {
@@ -14,12 +17,15 @@ print_terminal_size(void)
 }
 
 static void
-usage()
+usage(void)
 {
 	fprintf(stderr, "usage: %s file screen\n", getprogname());
 	exit(EXIT_FAILURE);
 }
 
+/*
+ * Display the screen given in argument.
+ */
 int
 main(int argc, char *argv[])
 {

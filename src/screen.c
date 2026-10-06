@@ -18,6 +18,7 @@ setup_screen(toml_result_t *result, const char *filename)
 	}
 
 	initscr();
+	curs_set(0);
 
 	return (SCREEN_OK);
 }

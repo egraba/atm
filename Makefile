@@ -14,22 +14,22 @@ OBJS = $(SRCS:.c=.o)
 LIBS = -lncurses -ltomlc17
 TARGET = $(BUILD_DIR)/atm
 
-SRCS_TEST = $(wildcard $(TEST_DIR)/*.c)
-OBJS_TEST = $(filter-out $(SRC_DIR)/atm.o, $(OBJS)) $(SRCS_TEST:.c=.o)
-TARGET_TEST = $(BUILD_DIR)/display
+SRCS_DISPLAY = $(SRC_DIR)/screen.c $(TEST_DIR)/display.c
+OBJS_DISPLAY = $(SRC_DIR)/screen.o $(TEST_DIR)/display.o
+TARGET_DISPLAY = $(BUILD_DIR)/display
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) $^ -o $@
 
-test: $(TARGET_TEST)
+test: $(TARGET_DISPLAY)
 
-$(TARGET_TEST): $(OBJS_TEST)
+$(TARGET_DISPLAY): $(OBJS_DISPLAY)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) $^ -o $@
 
 clean:
 	rm -f $(OBJS) $(TARGET)
-	rm -f $(OBJS_TEST) $(TARGET_TEST)
+	rm -f $(OBJS_DISPLAY) $(TARGET_DISPLAY)
 
 .PHONY: all test clean

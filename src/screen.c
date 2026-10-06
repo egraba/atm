@@ -7,8 +7,11 @@
 
 #include "screen.h"
 
+/*
+ * Parse TOML config file and initialise screen (ncurses calls).
+ */
 int
-setup_screen(toml_result_t *result, const char *filename)
+init_screen(toml_result_t *result, const char *filename)
 {
 	*result = toml_parse_file_ex(filename);
 
@@ -23,8 +26,11 @@ setup_screen(toml_result_t *result, const char *filename)
 	return (SCREEN_OK);
 }
 
+/*
+ * End screen (ncurses calls) and free TOML config file.
+ */
 void
-tear_down_screen(toml_result_t *result)
+end_screen(toml_result_t *result)
 {
 	endwin();
 	toml_free(*result);

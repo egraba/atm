@@ -34,10 +34,10 @@ main(int argc, char *argv[])
 	if (argc != 3)
 		usage();
 
-	setup_screen(&result, argv[1]);
+	init_screen(&result, argv[1]);
 	print_terminal_size();
 	display(&result, argv[2]);
-	tear_down_screen(&result);
+	end_screen(&result);
 
 	return (EXIT_SUCCESS);
 }

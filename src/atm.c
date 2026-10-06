@@ -49,9 +49,9 @@ main(int argc, char *argv[])
 	a.a_state = OUT_OF_SERVICE;
 	devices_init(&a);
 
-	setup_screen(&result, argv[1]);
+	init_screen(&result, argv[1]);
 	display(&result, "idle-loop");
-	tear_down_screen(&result);
+	end_screen(&result);
 
 	return (EXIT_SUCCESS);
 }

@@ -9,8 +9,8 @@ enum screen_return_code {
 };
 
 /* Setup */
-int setup_screen(toml_result_t *result, const char* filename);
-void tear_down_screen(toml_result_t *result);
+int init_screen(toml_result_t *result, const char* filename);
+void end_screen(toml_result_t *result);
 
 /* Generic screens */
 int display(toml_result_t *result, const char *screen);

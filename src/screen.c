@@ -126,6 +126,7 @@ display(toml_result_t *result, const char *screen)
 		    hl_node, instr_node);
 		free(hl_node);
 		free(instr_node);
+
 		return (SCREEN_ERROR);
 	}
 

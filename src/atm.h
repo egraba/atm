@@ -6,6 +6,4 @@ enum atm_return_code {
 	ATM_ERROR,
 };
 
-void devices_init(struct atm *a);
-
 #endif

@@ -85,34 +85,59 @@ display(toml_result_t *result, const char *screen)
 {
 	char *hl_node = (char *) malloc(BUFSIZ);
 	char *instr_node = (char *) malloc(BUFSIZ);
-	toml_datum_t hl, instr;
-	bool has_headline = false;
-	bool has_instruction = false;
+	toml_datum_t scr;
+	toml_datum_t hl;
+	toml_datum_t instr;
+	bool has_hl = false;
+	bool has_instr = false;
 
+	/* Check that the screen exists. */
+	scr = toml_seek(result->toptab, screen);
+	if (scr.type == TOML_UNKNOWN) {
+		fprintf(stderr, "screen %s doesn't exist\n", screen);
+		return (SCREEN_ERROR);
+	}
 
-	strcpy(hl_node, screen);
+	/* 
+	 * Check that the screen is valid.
+	 * The screen must contain:
+	 * - either a headline or an instruction
+	 * - function keys (optional)
+	 */
+	stpcpy(hl_node, screen);
 	strcat(hl_node, ".headline");
 	hl = toml_seek(result->toptab, hl_node);
-	if (hl.type == TOML_STRING) {
-		has_headline = true;
-		print_headline(hl.u.s);
-	}
-	free(hl_node);
+	if (hl.type != TOML_STRING)
+		has_hl = false;
+	else
+		has_hl = true;
 
-	strcpy(instr_node, screen);
+	stpcpy(instr_node, screen);
 	strcat(instr_node, ".instruction");
 	instr = toml_seek(result->toptab, instr_node);
-	if (instr.type == TOML_STRING) {
-		has_instruction = true;
-		print_instruction(instr.u.s);
-	}
-	free(instr_node);
+	if (instr.type != TOML_STRING)
+		has_instr = false;
+	else
+		has_instr = true;
 
-	if (!has_headline && !has_instruction) {
+	if (!has_hl && !has_instr) {
 		fprintf(stderr,
 		    "both %s and %s properties are missing or invalid\n",
 		    hl_node, instr_node);
+		free(hl_node);
+		free(instr_node);
 		return (SCREEN_ERROR);
+	}
+
+	/* Print the screen. */
+	if (has_hl) {
+		print_headline(hl.u.s);
+		free(hl_node);
+	}
+
+	if (has_instr) {
+		print_instruction(instr.u.s);
+		free(instr_node);
 	}
 
 	getch();

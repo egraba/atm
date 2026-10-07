@@ -3,9 +3,12 @@
 
 #include <tomlc17.h>
 
-enum screen_return_code {
+enum {
 	SCREEN_OK,
 	SCREEN_ERROR,
+	X_MARGIN = 1,
+	Y_MARGIN = 1,
+	MAX_FKEYS = 8,
 };
 
 /* Setup */

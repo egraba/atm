@@ -46,6 +46,24 @@ x_center(const char *message)
 }
 
 /*
+ * Return the column to display a message on the left.
+ */
+static inline int
+x_left(void)
+{
+	return (X_MARGIN);
+}
+
+/*
+ * Return the column to display a message on the right.
+ */
+static inline int
+x_right(const char *message)
+{
+	return (COLS - strlen(message) - X_MARGIN);
+}
+
+/*
  * Return the line to display a centered messsage.
  * Assumption: the message is a one-line one.
  */
@@ -56,13 +74,31 @@ y_center(void)
 }
 
 /*
+ * Return the line to display a message on the top.
+ */
+static inline int
+y_top(void)
+{
+	return (Y_MARGIN);
+}
+
+/*
+ * Return the line to display a message on the bottom.
+ */
+static inline int
+y_bottom(void)
+{
+	return (LINES - Y_MARGIN - 1);
+}
+
+/*
  * Print the headline.
  * Healine is a centered text at the top of the screen.
  */
 static void
 print_headline(const char *message)
 {
-	mvprintw(1, x_center(message), message);
+	mvprintw(y_top(), x_center(message), message);
 }
 
 /*
@@ -73,6 +109,57 @@ static void
 print_instruction(const char *message)
 {
 	mvprintw(y_center(), x_center(message), message);
+}
+
+/*
+ * Print the text given as parameter on the function key given as parameter.
+ */
+static int
+print_fkey(int number, const char *message)
+{
+	int x, y;
+
+	switch (number) {
+	case 1:
+		x = x_left();
+		y = y_bottom() - LINES / 4;
+		break;
+	case 2:
+		x = x_left();
+		y = y_bottom() - 2 * LINES / 4;
+		break;
+	case 3:
+		x = x_left();
+		y = y_bottom() - 3 * LINES / 4;
+		break;
+	case 4:
+		x = x_left();
+		y = y_bottom();
+		break;
+	case 5:
+		x = x_right(message);
+		y = y_bottom() - LINES / 4;
+		break;
+	case 6:
+		x = x_right(message);
+		y = y_bottom() - 2 * LINES / 4;
+		break;
+	case 7:
+		x = x_right(message);
+		y = y_bottom() - 3 * LINES / 4;
+		break;
+	case 8:
+		x = x_right(message);
+		y = y_bottom();
+		break;
+	default:
+		fprintf(stderr, "f%d is not a valid function key\n", number);
+		return (SCREEN_ERROR);
+	}
+
+	mvprintw(y, x, message);
+
+	return (SCREEN_OK);
 }
 
 /*
@@ -130,6 +217,23 @@ display(toml_result_t *result, const char *screen)
 		return (SCREEN_ERROR);
 	}
 
+	for (int i = 0; i < MAX_FKEYS; i++) {
+		char *fk_node = (char *) malloc(BUFSIZ);
+		char fk_id[4];
+		toml_datum_t fk;
+		int idx = i + 1; /* Function key index start at 1. */
+		
+		stpcpy(fk_node, screen);
+		sprintf(fk_id, ".f%d", idx);
+		strcat(fk_node, fk_id);
+		fk = toml_seek(result->toptab, fk_node);
+
+		if (fk.type == TOML_STRING)
+			print_fkey(idx, fk.u.s);
+
+		free(fk_node);
+	}
+
 	/* Print the screen. */
 	if (has_hl) {
 		print_headline(hl.u.s);
@@ -149,7 +253,6 @@ display(toml_result_t *result, const char *screen)
 
 /*
  * Display an error screen.
- * 
  * Note: There is no configuration for these screens as errors cannot be
  * hardcoded in a config file.
  */

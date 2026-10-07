@@ -1,0 +1,14 @@
+#
+# Various screens to test different layouts.
+#
+
+[amount-selection]
+headline= "Select your operation"
+f1 = "20 EUR"
+f2 = "30 EUR"
+f3 = "40 EUR"
+f4 = "50 EUR"
+f5 = "60 EUR"
+f6 = "80 EUR"
+f7 = "100 EUR"
+f8 = "120 EUR"

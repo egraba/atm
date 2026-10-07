@@ -1,35 +1,24 @@
-CC = clang
-CFLAGS = -Wall -Wextra -g
-CFLAGS += -I $(SRC_DIR)   # To include headers in test files.
-CFLAGS += -I $(DEPS_DIR)
-LDFLAGS = -L$(DEPS_DIR)
+CC     = clang
+CFLAGS = -Wall -Wextra -g -MMD -MP -Isrc -Ivendor/tomlc17/src
+LDLIBS = -lncurses
 
-SRC_DIR = src
-DEPS_DIR = deps
-TEST_DIR = test
-BUILD_DIR = build
+SRCS      = $(wildcard src/*.c) vendor/tomlc17/src/tomlc17.c
+OBJS      = $(SRCS:.c=.o)
+TEST_OBJS = src/screen.o test/display.o vendor/tomlc17/src/tomlc17.o
 
-SRCS = $(wildcard $(SRC_DIR)/*.c)
-OBJS = $(SRCS:.c=.o)
-LIBS = -lncurses -ltomlc17
-TARGET = $(BUILD_DIR)/atm
+all: build/atm
+test: build/display
 
-SRCS_DISPLAY = $(SRC_DIR)/screen.c $(TEST_DIR)/display.c
-OBJS_DISPLAY = $(SRC_DIR)/screen.o $(TEST_DIR)/display.o
-TARGET_DISPLAY = $(BUILD_DIR)/display
+build/atm: $(OBJS)
+build/display: $(TEST_OBJS)
 
-all: $(TARGET)
-
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) $^ -o $@
-
-test: $(TARGET_DISPLAY)
-
-$(TARGET_DISPLAY): $(OBJS_DISPLAY)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) $^ -o $@
+build/atm build/display:
+	@mkdir -p build
+	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 clean:
-	rm -f $(OBJS) $(TARGET)
-	rm -f $(OBJS_DISPLAY) $(TARGET_DISPLAY)
+	rm -rf build $(OBJS) $(TEST_OBJS) $(OBJS:.o=.d) $(TEST_OBJS:.o=.d)
+
+-include $(OBJS:.o=.d) $(TEST_OBJS:.o=.d)
 
 .PHONY: all test clean
